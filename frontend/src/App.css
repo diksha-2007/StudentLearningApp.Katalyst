@@ -1,0 +1,420 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #09090b;
+  color: #ffffff;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+}
+
+/* NAVBAR */
+
+.navbar {
+  height: 80px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202024;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #8b5cf6;
+}
+
+.nav-links {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-links a {
+  color: #a1a1aa;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.login-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid #333338;
+}
+
+.signup-btn {
+  background: #7c3aed;
+  color: white;
+  border: none;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 700px;
+  padding: 90px 7%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 13px;
+  border: 1px solid #302456;
+  border-radius: 50px;
+  color: #a78bfa;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(60px, 7vw, 100px);
+  line-height: 0.9;
+  letter-spacing: -5px;
+  margin-bottom: 30px;
+}
+
+.hero h1 span {
+  color: #8b5cf6;
+}
+
+.hero-content > p {
+  max-width: 520px;
+  color: #a1a1aa;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  margin-top: 35px;
+  display: flex;
+  gap: 15px;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.primary-btn {
+  border: none;
+  background: #7c3aed;
+  color: white;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #3f3f46;
+  color: white;
+}
+
+/* DASHBOARD PREVIEW */
+
+.dashboard-preview {
+  padding: 25px;
+  border: 1px solid #27272a;
+  border-radius: 20px;
+  background: #111114;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.preview-header small,
+.progress-card small,
+.meeting-card small {
+  color: #71717a;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.preview-header h3 {
+  margin-top: 6px;
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #7c3aed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.progress-card {
+  padding: 22px;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+  background: #18181b;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-top h2 {
+  font-size: 38px;
+  margin-top: 5px;
+}
+
+.progress-ring {
+  width: 65px;
+  height: 65px;
+  border: 5px solid #7c3aed;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #27272a;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 75%;
+  height: 100%;
+  background: #8b5cf6;
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stat-card {
+  padding: 18px;
+  border-radius: 14px;
+  background: #18181b;
+  border: 1px solid #27272a;
+}
+
+.stat-card span {
+  display: block;
+  font-size: 10px;
+  color: #71717a;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 25px;
+  margin: 8px 0;
+}
+
+.stat-card small {
+  color: #a1a1aa;
+}
+
+/* MEETING */
+
+.meeting-card {
+  margin-top: 12px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #18181b;
+  border: 1px solid #27272a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meeting-card h4 {
+  margin: 7px 0;
+}
+
+.meeting-card p {
+  color: #71717a;
+  font-size: 13px;
+}
+
+.meeting-card button {
+  border: none;
+  background: transparent;
+  color: #a78bfa;
+}
+
+/* ABOUT */
+
+.about-section {
+  padding: 120px 7%;
+  border-top: 1px solid #202024;
+}
+
+.section-label {
+  color: #8b5cf6;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.about-section h2 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.about-section h2 span {
+  color: #71717a;
+}
+
+.section-description {
+  max-width: 600px;
+  color: #a1a1aa;
+  line-height: 1.7;
+  margin-top: 25px;
+}
+
+/* FEATURES */
+
+.features-section {
+  padding: 0 7% 120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  padding: 35px;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  background: #111114;
+}
+
+.feature-number {
+  color: #8b5cf6;
+  font-size: 13px;
+  margin-bottom: 45px;
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  color: #71717a;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 50px 7%;
+  border-top: 1px solid #202024;
+}
+
+footer p {
+  color: #71717a;
+  margin: 12px 0 25px;
+}
+
+footer small {
+  color: #52525b;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+  }
+
+  .features-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    padding: 0 5%;
+  }
+
+  .signup-btn {
+    display: none;
+  }
+
+  .hero {
+    padding: 50px 5%;
+  }
+
+  .hero h1 {
+    font-size: 65px;
+  }
+
+  .about-section {
+    padding: 80px 5%;
+  }
+
+  .about-section h2 {
+    font-size: 45px;
+  }
+
+  .features-section {
+    padding: 0 5% 80px;
+  }
+}

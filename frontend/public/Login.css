@@ -1,0 +1,140 @@
+.login-page {
+  min-height: 100vh;
+  background: #09090b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 5%;
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: white;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 45px;
+  background: #111114;
+  border: 1px solid #27272a;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.login-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+}
+
+.login-logo span {
+  color: #8b5cf6;
+}
+
+.login-card h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  color: #71717a;
+  margin-bottom: 30px;
+}
+
+.role-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-card {
+  width: 100%;
+  padding: 17px;
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.role-card:hover {
+  border-color: #7c3aed;
+}
+
+.role-card.selected {
+  border-color: #8b5cf6;
+  background: #1c1729;
+}
+
+.role-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #27272a;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.role-card h3 {
+  margin-bottom: 4px;
+}
+
+.role-card p {
+  color: #71717a;
+  font-size: 12px;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 8px;
+  background: #7c3aed;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.continue-button:hover {
+  background: #8b5cf6;
+}
+
+.demo-button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.login-footer {
+  text-align: center;
+  color: #52525b;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 30px;
+}
+
