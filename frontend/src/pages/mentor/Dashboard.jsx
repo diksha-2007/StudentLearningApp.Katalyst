@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import StatCard from "../../components/ui/StatCard";
 import API from "../../api";
+import { openGoogleMeet } from "../../utils/meetUtils";
 import { useAuth } from "../../context/AuthContext";
 
 export default function MentorDashboard() {
@@ -85,16 +86,19 @@ export default function MentorDashboard() {
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>No upcoming meetings.</p>
           ) : (
             data.upcomingMeetings.map((m) => (
-              <div key={m._id} className="mb-3 rounded-xl p-3" style={{ background: "var(--accent-light)" }}>
-                <p className="font-medium">{m.topic}</p>
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                  {m.studentId?.name} · {new Date(m.scheduledDate).toLocaleDateString()}
-                </p>
-                {m.meetLink && (
-                  <a href={m.meetLink} target="_blank" rel="noreferrer" className="text-xs text-katalyst-500 hover:underline">
-                    Join Meet →
-                  </a>
-                )}
+              <div key={m._id} className="mb-3 rounded-xl p-3 flex flex-wrap items-center justify-between gap-2" style={{ background: "var(--accent-light)" }}>
+                <div>
+                  <p className="font-medium">{m.topic}</p>
+                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                    {m.studentId?.name || "Student"} · {new Date(m.scheduledDate).toLocaleDateString()}
+                  </p>
+                </div>
+                <button
+                  onClick={() => openGoogleMeet(m)}
+                  className="btn-primary !py-1 !px-2.5 text-xs flex items-center gap-1"
+                >
+                  📹 Meet
+                </button>
               </div>
             ))
           )}
@@ -109,7 +113,7 @@ export default function MentorDashboard() {
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
               <YAxis domain={[0, 100]} tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="progress" fill="#ec4899" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="progress" fill="#2563eb" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

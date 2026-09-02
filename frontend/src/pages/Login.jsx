@@ -119,7 +119,7 @@ export default function Login() {
         </p>
 
         {/* 1-Click Instant Demo Login */}
-        <div className="mt-5 rounded-xl border p-3" style={{ borderColor: "var(--border)", background: "rgba(236, 72, 153, 0.05)" }}>
+        <div className="mt-5 rounded-xl border p-3" style={{ borderColor: "var(--border)", background: "var(--accent-light)" }}>
           <p className="text-xs font-bold text-center mb-2 text-katalyst-500 uppercase tracking-wider">
             🚀 One-Click Instant Demo Login
           </p>

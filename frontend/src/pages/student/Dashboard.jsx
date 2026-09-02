@@ -5,8 +5,10 @@ import DashboardLayout from "../../components/layout/DashboardLayout";
 import StatCard from "../../components/ui/StatCard";
 import API from "../../api";
 import { useAuth } from "../../context/AuthContext";
+import { getTrainingThumbnail, DEFAULT_WEB_DEV_SVG } from "../../utils/trainingImages";
+import { openGoogleMeet } from "../../utils/meetUtils";
 
-const COLORS = ["#ec4899", "#f472b6", "#fbcfe8", "#fce7f3"];
+const COLORS = ["#2563eb", "#3b82f6", "#60a5fa", "#93c5fd"];
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -49,8 +51,8 @@ export default function StudentDashboard() {
             <PieChart>
               <Pie data={[{ value: overall }, { value: 100 - overall }]} cx="50%" cy="50%"
                 innerRadius={45} outerRadius={60} dataKey="value" startAngle={90} endAngle={-270}>
-                <Cell fill="#ec4899" />
-                <Cell fill="#fce7f3" />
+                <Cell fill="#2563eb" />
+                <Cell fill="#dbeafe" />
               </Pie>
             </PieChart>
           </ResponsiveContainer>
@@ -91,9 +93,20 @@ export default function StudentDashboard() {
               data.enrolledTrainings.map((t) => (
                 <div key={t._id} className="flex items-center justify-between rounded-xl p-3"
                   style={{ background: "var(--accent-light)" }}>
-                  <div>
-                    <p className="font-medium">{t.title}</p>
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{t.category}</p>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={getTrainingThumbnail(t)}
+                      alt={t.title}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = DEFAULT_WEB_DEV_SVG;
+                      }}
+                      className="h-10 w-12 rounded-lg object-cover"
+                    />
+                    <div>
+                      <p className="font-medium">{t.title}</p>
+                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>{t.category}</p>
+                    </div>
                   </div>
                   <span className="font-bold text-katalyst-500">
                     {t.isCompleted ? "✓ Done" : `${t.completedVideos} videos`}
@@ -115,17 +128,19 @@ export default function StudentDashboard() {
               <p className="text-sm" style={{ color: "var(--text-muted)" }}>No upcoming meetings.</p>
             ) : (
               data.upcomingMeetings.map((m) => (
-                <div key={m._id} className="rounded-xl border p-3" style={{ borderColor: "var(--border)" }}>
-                  <p className="font-medium">{m.topic}</p>
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                    with {m.mentorId?.name} · {new Date(m.scheduledDate).toLocaleDateString()} {m.scheduledTime}
-                  </p>
-                  {m.meetLink && (
-                    <a href={m.meetLink} target="_blank" rel="noreferrer"
-                      className="mt-2 inline-block text-xs text-katalyst-500 hover:underline">
-                      Join Google Meet →
-                    </a>
-                  )}
+                <div key={m._id} className="rounded-xl border p-3 flex flex-wrap items-center justify-between gap-2" style={{ borderColor: "var(--border)" }}>
+                  <div>
+                    <p className="font-medium">{m.topic}</p>
+                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                      with {m.mentorId?.name || "Mentor"} · {new Date(m.scheduledDate).toLocaleDateString()} {m.scheduledTime}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => openGoogleMeet(m)}
+                    className="btn-primary !py-1 !px-2.5 text-xs flex items-center gap-1"
+                  >
+                    📹 Join Meet
+                  </button>
                 </div>
               ))
             )}

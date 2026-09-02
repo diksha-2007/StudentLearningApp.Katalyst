@@ -55,11 +55,11 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
       {/* Logo */}
       <div className="flex h-16 items-center justify-between border-b border-gray-200 px-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-600">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600">
             <GraduationCap className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-purple-600">Katalyst</h1>
+            <h1 className="text-lg font-bold text-blue-600">Katalyst</h1>
             <p className="text-[10px] text-gray-500">Learning Platform</p>
           </div>
         </div>
@@ -74,14 +74,14 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
 
       {/* Role Badge */}
       <div className="px-4 pt-4">
-        <div className="flex items-center gap-3 rounded-xl bg-purple-50 px-3 py-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100">
+        <div className="flex items-center gap-3 rounded-xl bg-blue-50 px-3 py-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
             {role === "admin" ? (
-              <ShieldCheck className="h-4 w-4 text-purple-600" />
+              <ShieldCheck className="h-4 w-4 text-blue-600" />
             ) : role === "mentor" ? (
-              <Users className="h-4 w-4 text-purple-600" />
+              <Users className="h-4 w-4 text-blue-600" />
             ) : (
-              <User className="h-4 w-4 text-purple-600" />
+              <User className="h-4 w-4 text-blue-600" />
             )}
           </div>
           <div className="min-w-0">
@@ -106,8 +106,8 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-purple-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-purple-50 hover:text-purple-600"
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
                   }`
                 }
               >

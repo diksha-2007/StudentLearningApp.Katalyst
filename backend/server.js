@@ -59,18 +59,22 @@ app.use(
   })
 );
 
-// Rate limiting
+// Rate limiting (relaxed for local development and demo testing)
+const isDev = process.env.NODE_ENV !== "production";
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min
-  max: 100,
+  max: isDev ? 10000 : 1000,
+  skip: (req) => isDev || req.ip === "127.0.0.1" || req.ip === "::1" || req.ip === "::ffff:127.0.0.1",
   message: { message: "Too many requests, please try again later." },
 });
 app.use("/api/", limiter);
 
-// Auth rate limit (stricter)
+// Auth rate limit
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: isDev ? 2000 : 200,
+  skip: (req) => isDev || req.ip === "127.0.0.1" || req.ip === "::1" || req.ip === "::ffff:127.0.0.1",
   message: { message: "Too many login attempts, please try again later." },
 });
 app.use("/api/auth/", authLimiter);

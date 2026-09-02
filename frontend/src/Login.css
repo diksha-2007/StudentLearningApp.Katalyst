@@ -41,7 +41,7 @@
 }
 
 .login-logo span {
-  color: #8b5cf6;
+  color: #2563eb;
 }
 
 .login-card h1 {
@@ -76,12 +76,12 @@
 }
 
 .role-card:hover {
-  border-color: #7c3aed;
+  border-color: #2563eb;
 }
 
 .role-card.selected {
-  border-color: #8b5cf6;
-  background: #1c1729;
+  border-color: #3b82f6;
+  background: rgba(37, 99, 235, 0.12);
 }
 
 .role-icon {
@@ -110,14 +110,14 @@
   margin-top: 25px;
   border: none;
   border-radius: 8px;
-  background: #7c3aed;
+  background: #2563eb;
   color: white;
   font-size: 15px;
   cursor: pointer;
 }
 
 .continue-button:hover {
-  background: #8b5cf6;
+  background: #3b82f6;
 }
 
 .demo-button {

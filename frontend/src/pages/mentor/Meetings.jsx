@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import CalendarView from "../../components/CalendarView";
 import API from "../../api";
+import { openGoogleMeet } from "../../utils/meetUtils";
 
 export default function MentorMeetings() {
   const [meetings, setMeetings] = useState([]);
@@ -40,7 +41,7 @@ export default function MentorMeetings() {
     pending: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
     accepted: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
     rejected: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
-    completed: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+    completed: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
   };
 
   return (
@@ -84,9 +85,17 @@ export default function MentorMeetings() {
                         Student: {m.studentId?.name || "Student"} · {new Date(m.scheduledDate).toLocaleDateString()} at {m.scheduledTime}
                       </p>
                     </div>
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusColor[m.status] || ""}`}>
-                      {m.status}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openGoogleMeet(m)}
+                        className="btn-primary !py-1 !px-2.5 text-xs flex items-center gap-1"
+                      >
+                        📹 Meet
+                      </button>
+                      <span className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusColor[m.status] || ""}`}>
+                        {m.status}
+                      </span>
+                    </div>
                   </div>
                 ))
               )}
@@ -116,11 +125,14 @@ export default function MentorMeetings() {
                     <button onClick={() => respond(m._id, "rejected")} className="btn-secondary !py-1.5 text-xs text-red-500">Decline</button>
                   </>
                 )}
+                <button
+                  onClick={() => openGoogleMeet(m)}
+                  className="btn-primary !py-1.5 text-xs flex items-center gap-1.5"
+                >
+                  📹 Join Google Meet
+                </button>
                 {m.status === "accepted" && (
                   <>
-                    {m.meetLink && (
-                      <a href={m.meetLink} target="_blank" rel="noreferrer" className="btn-primary !py-1.5 text-xs">Join Google Meet</a>
-                    )}
                     <button onClick={() => setNotesModal(m._id)} className="btn-secondary !py-1.5 text-xs">Add Notes</button>
                     <button onClick={() => completeMeeting(m._id)} className="btn-secondary !py-1.5 text-xs">Mark Completed</button>
                   </>

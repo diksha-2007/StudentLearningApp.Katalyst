@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import API from "../../api";
+import { getTrainingThumbnail, DEFAULT_WEB_DEV_SVG } from "../../utils/trainingImages";
 
 export default function StudentTrainings() {
   const [trainings, setTrainings] = useState([]);
@@ -50,9 +51,17 @@ export default function StudentTrainings() {
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((t) => (
             <div key={t._id} className="glass-card overflow-hidden transition-transform hover:-translate-y-1">
-              {t.thumbnail && (
-                <img src={t.thumbnail} alt={t.title} className="h-40 w-full object-cover" />
-              )}
+              <div className="relative h-44 w-full overflow-hidden bg-slate-800">
+                <img
+                  src={getTrainingThumbnail(t)}
+                  alt={t.title}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = DEFAULT_WEB_DEV_SVG;
+                  }}
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
               <div className="p-5">
                 <span className="badge">{t.category}</span>
                 <h3 className="mt-3 text-lg font-bold">{t.title}</h3>

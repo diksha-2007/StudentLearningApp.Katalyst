@@ -5,7 +5,7 @@ import DashboardLayout from "../../components/layout/DashboardLayout";
 import StatCard from "../../components/ui/StatCard";
 import API from "../../api";
 
-const COLORS = ["#ec4899", "#f472b6", "#fbcfe8", "#db2777", "#be185d"];
+const COLORS = ["#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#1d4ed8"];
 
 export default function AdminDashboard() {
   const [data, setData] = useState(null);
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
               <XAxis dataKey="title" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="enrollments" fill="#ec4899" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="enrollments" fill="#2563eb" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Video, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Video, User, ExternalLink, X } from "lucide-react";
+import { openGoogleMeet, getGoogleMeetLink } from "../utils/meetUtils";
 
 export default function CalendarView({ events = [], onSelectDate, userRole = "student" }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedMeeting, setSelectedMeeting] = useState(null);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -34,7 +36,7 @@ export default function CalendarView({ events = [], onSelectDate, userRole = "st
     accepted: "bg-green-500 text-white",
     pending: "bg-amber-500 text-white",
     rejected: "bg-red-500 text-white",
-    completed: "bg-purple-600 text-white",
+    completed: "bg-blue-600 text-white",
   };
 
   return (
@@ -117,10 +119,14 @@ export default function CalendarView({ events = [], onSelectDate, userRole = "st
                 {dayEvents.map((ev, idx) => (
                   <div
                     key={idx}
-                    className={`truncate rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedMeeting(ev);
+                    }}
+                    className={`truncate rounded px-1.5 py-0.5 text-[10px] font-semibold cursor-pointer hover:opacity-90 ${
                       statusColors[ev.status] || "bg-katalyst-500 text-white"
                     }`}
-                    title={`${ev.topic || ev.title} - ${ev.scheduledTime || ""}`}
+                    title={`${ev.topic || ev.title} - Click to view details & Google Meet link`}
                   >
                     {ev.scheduledTime ? `${ev.scheduledTime} ` : ""}
                     {ev.topic || ev.title}
@@ -131,6 +137,67 @@ export default function CalendarView({ events = [], onSelectDate, userRole = "st
           );
         })}
       </div>
+
+      {/* Selected Meeting Google Meet Modal */}
+      {selectedMeeting && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-fade-in">
+          <div className="glass-card w-full max-w-md p-6 relative">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${statusColors[selectedMeeting.status] || "bg-blue-600 text-white"}`}>
+                  {selectedMeeting.status || "Scheduled"}
+                </span>
+                <h3 className="text-lg font-bold mt-2">{selectedMeeting.topic || selectedMeeting.title}</h3>
+              </div>
+              <button 
+                onClick={() => setSelectedMeeting(null)}
+                className="p-1 text-gray-400 hover:text-white rounded-lg"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-2 text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
+              <p className="flex items-center gap-2">
+                <CalendarIcon className="h-4 w-4 text-blue-500" />
+                <span>Date: {new Date(selectedMeeting.scheduledDate || selectedMeeting.date).toLocaleDateString()}</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-blue-500" />
+                <span>Time: {selectedMeeting.scheduledTime || "Flexible"} ({selectedMeeting.duration || 45} mins)</span>
+              </p>
+              {selectedMeeting.mentorId && (
+                <p className="flex items-center gap-2">
+                  <User className="h-4 w-4 text-blue-500" />
+                  <span>Mentor: {selectedMeeting.mentorId?.name || "Assigned Mentor"}</span>
+                </p>
+              )}
+              {selectedMeeting.agenda && (
+                <p className="text-xs mt-2 p-2 rounded-lg bg-slate-800/40 border border-slate-700">
+                  <strong>Agenda:</strong> {selectedMeeting.agenda}
+                </p>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setSelectedMeeting(null)} 
+                className="btn-secondary flex-1 text-xs !py-2.5"
+              >
+                Close
+              </button>
+              <button 
+                onClick={() => openGoogleMeet(selectedMeeting)} 
+                className="btn-primary flex-1 text-xs !py-2.5 flex items-center justify-center gap-2"
+              >
+                <Video className="h-4 w-4" />
+                <span>Join Google Meet</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import API from "../../api";
+import { getTrainingThumbnail, DEFAULT_WEB_DEV_SVG } from "../../utils/trainingImages";
 
 export default function TrainingDetail() {
   const { id } = useParams();
@@ -9,8 +10,14 @@ export default function TrainingDetail() {
   const [loading, setLoading] = useState(true);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
-
   const [userEnrollment, setUserEnrollment] = useState(null);
+  const [activeVideo, setActiveVideo] = useState(null);
+
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return null;
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1` : url;
+  };
 
   const fetchTrainingDetails = () => {
     API.get(`/trainings/${id}`)
@@ -74,6 +81,24 @@ export default function TrainingDetail() {
 
   return (
     <DashboardLayout title={training.title} subtitle={training.category}>
+      {/* Hero Banner */}
+      <div className="relative mb-6 h-56 w-full overflow-hidden rounded-2xl border bg-slate-900 shadow-md" style={{ borderColor: "var(--border)" }}>
+        <img
+          src={getTrainingThumbnail(training)}
+          alt={training.title}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = DEFAULT_WEB_DEV_SVG;
+          }}
+          className="h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end">
+          <span className="badge w-fit mb-2">{training.category}</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">{training.title}</h2>
+          <p className="mt-1 text-sm text-slate-200 line-clamp-2 max-w-3xl drop-shadow">{training.description}</p>
+        </div>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
           {/* Videos */}
@@ -88,20 +113,23 @@ export default function TrainingDetail() {
               {(training.videos || []).map((v, i) => {
                 const isCompleted = completedVideos.includes(i);
                 return (
-                  <div key={i} className="flex items-center justify-between rounded-xl border p-4"
+                  <div key={i} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border p-4"
                     style={{ borderColor: "var(--border)", backgroundColor: isCompleted ? "rgba(16, 185, 129, 0.05)" : "transparent" }}>
                     <div>
                       <p className="font-medium flex items-center gap-2">
-                        {isCompleted && <span className="text-green-500">✓</span>}
-                        {v.title}
+                        {isCompleted && <span className="text-green-500 font-bold">✓</span>}
+                        Lesson {i + 1}: {v.title}
                       </p>
-                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>{v.duration}</p>
+                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>⏱ {v.duration}</p>
                     </div>
                     <div className="flex gap-2">
                       {v.url && (
-                        <a href={v.url} target="_blank" rel="noreferrer" className="btn-secondary !py-1.5 text-xs">
-                          Watch Video
-                        </a>
+                        <button 
+                          onClick={() => setActiveVideo({ ...v, index: i })}
+                          className="btn-secondary !py-1.5 text-xs flex items-center gap-1.5"
+                        >
+                          ▶ Watch Lesson
+                        </button>
                       )}
                       <button 
                         onClick={() => completeVideo(i)} 
@@ -116,6 +144,62 @@ export default function TrainingDetail() {
               })}
             </div>
           </div>
+
+          {/* Active Video Player Modal */}
+          {activeVideo && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm animate-fade-in">
+              <div className="glass-card w-full max-w-3xl overflow-hidden p-6 relative">
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <span className="badge mb-1">Lesson {activeVideo.index + 1}</span>
+                    <h3 className="text-lg font-bold">{activeVideo.title}</h3>
+                  </div>
+                  <button 
+                    onClick={() => setActiveVideo(null)}
+                    className="p-1 text-gray-400 hover:text-white rounded-lg"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black shadow-lg">
+                  {getYouTubeEmbedUrl(activeVideo.url) ? (
+                    <iframe
+                      src={getYouTubeEmbedUrl(activeVideo.url)}
+                      title={activeVideo.title}
+                      className="h-full w-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-slate-400">
+                      Video source unavailable.
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-4 flex flex-wrap justify-between items-center gap-2">
+                  <a
+                    href={activeVideo.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-blue-500 hover:underline flex items-center gap-1"
+                  >
+                    Open in YouTube ↗
+                  </a>
+                  <button
+                    onClick={() => {
+                      completeVideo(activeVideo.index);
+                      setActiveVideo(null);
+                    }}
+                    className="btn-primary !py-2 text-xs"
+                  >
+                    Mark Lesson as Completed ✓
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Quiz */}
           {(training.quizzes || []).length > 0 && (

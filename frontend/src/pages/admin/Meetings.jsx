@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import CalendarView from "../../components/CalendarView";
 import API from "../../api";
+import { openGoogleMeet } from "../../utils/meetUtils";
 
 export default function AdminMeetings() {
   const [meetings, setMeetings] = useState([]);
@@ -25,10 +26,10 @@ export default function AdminMeetings() {
   };
 
   const statusColor = {
-    pending: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
+    pending: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
     accepted: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    completed: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
     rejected: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
-    completed: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
   };
 
   return (
@@ -73,9 +74,17 @@ export default function AdminMeetings() {
                         Student: {m.studentId?.name || "Student"} | Mentor: {m.mentorId?.name || "Mentor"} · {new Date(m.scheduledDate).toLocaleDateString()} at {m.scheduledTime}
                       </p>
                     </div>
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusColor[m.status] || ""}`}>
-                      {m.status}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openGoogleMeet(m)}
+                        className="btn-primary !py-1 !px-2.5 text-xs flex items-center gap-1"
+                      >
+                        📹 Meet
+                      </button>
+                      <span className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusColor[m.status] || ""}`}>
+                        {m.status}
+                      </span>
+                    </div>
                   </div>
                 ))
               )}
@@ -112,11 +121,12 @@ export default function AdminMeetings() {
                     </button>
                   </>
                 )}
-                {m.meetLink && (
-                  <a href={m.meetLink} target="_blank" rel="noreferrer" className="btn-secondary !py-1.5 text-xs">
-                    View Meet Link
-                  </a>
-                )}
+                <button
+                  onClick={() => openGoogleMeet(m)}
+                  className="btn-primary !py-1.5 text-xs flex items-center gap-1.5"
+                >
+                  📹 Launch / View Google Meet
+                </button>
               </div>
             </div>
           ))}

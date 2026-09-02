@@ -43,7 +43,7 @@ button {
 }
 
 .logo span {
-  color: #8b5cf6;
+  color: #2563eb;
 }
 
 .nav-links {
@@ -80,7 +80,7 @@ button {
 }
 
 .signup-btn {
-  background: #7c3aed;
+  background: #2563eb;
   color: white;
   border: none;
 }
@@ -99,9 +99,9 @@ button {
 .badge {
   display: inline-block;
   padding: 8px 13px;
-  border: 1px solid #302456;
+  border: 1px solid #1e3a8a;
   border-radius: 50px;
-  color: #a78bfa;
+  color: #60a5fa;
   font-size: 11px;
   letter-spacing: 1px;
   margin-bottom: 25px;
@@ -115,7 +115,7 @@ button {
 }
 
 .hero h1 span {
-  color: #8b5cf6;
+  color: #3b82f6;
 }
 
 .hero-content > p {
@@ -140,7 +140,7 @@ button {
 
 .primary-btn {
   border: none;
-  background: #7c3aed;
+  background: #2563eb;
   color: white;
 }
 
@@ -183,7 +183,7 @@ button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #7c3aed;
+  background: #2563eb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,7 +211,7 @@ button {
 .progress-ring {
   width: 65px;
   height: 65px;
-  border: 5px solid #7c3aed;
+  border: 5px solid #2563eb;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -230,7 +230,7 @@ button {
 .progress-fill {
   width: 75%;
   height: 100%;
-  background: #8b5cf6;
+  background: #3b82f6;
 }
 
 /* STATS */
@@ -290,7 +290,7 @@ button {
 .meeting-card button {
   border: none;
   background: transparent;
-  color: #a78bfa;
+  color: #60a5fa;
 }
 
 /* ABOUT */
@@ -301,7 +301,7 @@ button {
 }
 
 .section-label {
-  color: #8b5cf6;
+  color: #3b82f6;
   font-size: 11px;
   letter-spacing: 2px;
   margin-bottom: 20px;
@@ -341,7 +341,7 @@ button {
 }
 
 .feature-number {
-  color: #8b5cf6;
+  color: #3b82f6;
   font-size: 13px;
   margin-bottom: 45px;
 }

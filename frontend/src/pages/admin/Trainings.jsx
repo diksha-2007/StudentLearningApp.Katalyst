@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import API from "../../api";
+import { getTrainingThumbnail, DEFAULT_WEB_DEV_SVG, CATEGORY_PRESET_IMAGES } from "../../utils/trainingImages";
 
 export default function AdminTrainings() {
   const [trainings, setTrainings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [form, setForm] = useState({
-    title: "", description: "", category: "", level: "Beginner", duration: "", instructor: "",
+    title: "", description: "", category: "Web Development", level: "Beginner", duration: "", instructor: "", thumbnail: "",
   });
 
   const [videos, setVideos] = useState([{ title: "", url: "", duration: "15m" }]);
@@ -51,7 +52,7 @@ export default function AdminTrainings() {
         assignments: [] 
       });
       setShowCreate(false);
-      setForm({ title: "", description: "", category: "", level: "Beginner", duration: "", instructor: "" });
+      setForm({ title: "", description: "", category: "Web Development", level: "Beginner", duration: "", instructor: "", thumbnail: "" });
       setVideos([{ title: "", url: "", duration: "15m" }]);
       fetchTrainings();
       alert("Training created successfully!");
@@ -79,18 +80,31 @@ export default function AdminTrainings() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {trainings.map((t) => (
-            <div key={t._id} className="glass-card p-5">
-              <span className="badge">{t.category}</span>
-              <h3 className="mt-2 font-bold">{t.title}</h3>
-              <p className="mt-1 line-clamp-2 text-sm" style={{ color: "var(--text-secondary)" }}>{t.description}</p>
-              <div className="mt-3 flex gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
-                <span>{t.level}</span>
-                <span>{t.duration}</span>
-                <span>{t.enrolledStudents?.length || 0} enrolled</span>
+            <div key={t._id} className="glass-card overflow-hidden">
+              <div className="relative h-36 w-full overflow-hidden bg-slate-800">
+                <img
+                  src={getTrainingThumbnail(t)}
+                  alt={t.title}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = DEFAULT_WEB_DEV_SVG;
+                  }}
+                  className="h-full w-full object-cover"
+                />
               </div>
-              <button onClick={() => deleteTraining(t._id)} className="btn-secondary mt-4 w-full !py-2 text-sm !text-red-500">
-                Delete
-              </button>
+              <div className="p-5">
+                <span className="badge">{t.category}</span>
+                <h3 className="mt-2 font-bold">{t.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm" style={{ color: "var(--text-secondary)" }}>{t.description}</p>
+                <div className="mt-3 flex gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
+                  <span>{t.level}</span>
+                  <span>{t.duration}</span>
+                  <span>{t.enrolledStudents?.length || 0} enrolled</span>
+                </div>
+                <button onClick={() => deleteTraining(t._id)} className="btn-secondary mt-4 w-full !py-2 text-sm !text-red-500">
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -101,14 +115,95 @@ export default function AdminTrainings() {
           <div className="glass-card w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto my-8">
             <h3 className="text-xl font-bold">Create New Training</h3>
             <form onSubmit={createTraining} className="mt-4 space-y-3">
-              {["title", "description", "category", "duration", "instructor"].map((f) => (
-                <input key={f} className="input-field capitalize" placeholder={f} value={form[f]}
-                  onChange={(e) => setForm({ ...form, [f]: e.target.value })} required />
-              ))}
-              <select className="input-field" value={form.level}
-                onChange={(e) => setForm({ ...form, level: e.target.value })}>
-                {["Beginner", "Intermediate", "Advanced"].map((l) => <option key={l}>{l}</option>)}
-              </select>
+              <input
+                className="input-field"
+                placeholder="Training Title (e.g. Web Development Masterclass)"
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                required
+              />
+
+              <textarea
+                className="input-field min-h-[80px]"
+                placeholder="Description"
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                required
+              />
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-xs font-semibold text-slate-400">Category</label>
+                  <select
+                    className="input-field mt-1"
+                    value={form.category}
+                    onChange={(e) => {
+                      const newCat = e.target.value;
+                      setForm({
+                        ...form,
+                        category: newCat,
+                        thumbnail: form.thumbnail || CATEGORY_PRESET_IMAGES[newCat] || ""
+                      });
+                    }}
+                  >
+                    {["Web Development", "Data Science", "DSA", "Cloud", "AI/ML", "Soft Skills", "Other"].map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-slate-400">Level</label>
+                  <select
+                    className="input-field mt-1"
+                    value={form.level}
+                    onChange={(e) => setForm({ ...form, level: e.target.value })}
+                  >
+                    {["Beginner", "Intermediate", "Advanced"].map((l) => <option key={l}>{l}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  className="input-field"
+                  placeholder="Duration (e.g. 6 weeks)"
+                  value={form.duration}
+                  onChange={(e) => setForm({ ...form, duration: e.target.value })}
+                  required
+                />
+                <input
+                  className="input-field"
+                  placeholder="Instructor Name"
+                  value={form.instructor}
+                  onChange={(e) => setForm({ ...form, instructor: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-400">Training Picture URL (Optional)</label>
+                <div className="flex gap-2 mt-1">
+                  <input
+                    className="input-field text-xs"
+                    placeholder="https://images.unsplash.com/... or paste image URL"
+                    value={form.thumbnail}
+                    onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, thumbnail: CATEGORY_PRESET_IMAGES[form.category] || CATEGORY_PRESET_IMAGES["Web Development"] })}
+                    className="btn-secondary whitespace-nowrap !py-1 text-xs"
+                  >
+                    Use Preset Image
+                  </button>
+                </div>
+                {form.thumbnail && (
+                  <div className="mt-2 h-24 w-full overflow-hidden rounded-lg border border-slate-700">
+                    <img src={form.thumbnail} alt="Preview" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = DEFAULT_WEB_DEV_SVG; }} />
+                  </div>
+                )}
+              </div>
 
               {/* Video Lessons Section */}
               <div className="pt-2 border-t mt-4" style={{ borderColor: "var(--border)" }}>
