@@ -73,6 +73,47 @@ const getStudents = async (req, res) => {
   }
 };
 
+// @desc Get mentor profile
+// @route GET /api/mentors/profile
+const getProfile = async (req, res) => {
+  try {
+    const mentor = await Mentor.findById(req.user.id).select("-password");
+    if (!mentor) return res.status(404).json({ message: "Mentor not found" });
+    res.json({ mentor });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// @desc Update mentor profile
+// @route PUT /api/mentors/profile
+const updateProfile = async (req, res) => {
+  try {
+    const { name, phone, bio, expertise, designation, company } = req.body;
+    const updated = await Mentor.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        phone,
+        bio,
+        expertise: Array.isArray(expertise)
+          ? expertise
+          : expertise
+          ? expertise.split(",").map((item) => item.trim()).filter(Boolean)
+          : [],
+        designation,
+        company,
+      },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!updated) return res.status(404).json({ message: "Mentor not found" });
+    res.json({ message: "Profile updated", mentor: updated });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 // @desc Accept or reject meeting
 // @route PUT /api/mentors/meeting/:id
 const respondToMeeting = async (req, res) => {
@@ -230,6 +271,8 @@ const getMeetings = async (req, res) => {
 
 module.exports = {
   getDashboard,
+  getProfile,
+  updateProfile,
   getStudents,
   respondToMeeting,
   addMeetingNotes,

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Mentor = require("./models/Mentor");
+const Mentor = require("../models/Mentor");
 require("dotenv").config();
 
 async function createMentor() {
@@ -9,7 +9,6 @@ async function createMentor() {
     console.log("MongoDB connected");
 
     const email = "sarah@katalyst.io";
-
     const existing = await Mentor.findOne({ email });
 
     if (existing) {
@@ -20,7 +19,7 @@ async function createMentor() {
 
     const mentor = await Mentor.create({
       name: "Sarah Mentor",
-      email: "sarah@katalyst.io",
+      email,
       password: "Mentor@123",
       phone: "9876543210",
       bio: "Experienced Katalyst mentor",
@@ -36,13 +35,10 @@ async function createMentor() {
       availability: [],
     });
 
-    console.log("✅ MENTOR CREATED");
-    console.log("Email:", mentor.email);
-    console.log("Password: Mentor@123");
-
+    console.log("Mentor created:", mentor.email);
     await mongoose.disconnect();
   } catch (error) {
-    console.error("❌ ERROR:", error.message);
+    console.error("Error creating mentor:", error.message);
     process.exit(1);
   }
 }

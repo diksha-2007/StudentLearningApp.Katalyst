@@ -21,6 +21,7 @@ import MentorDashboard from "./pages/mentor/Dashboard";
 import MentorStudents from "./pages/mentor/Students";
 import MentorMeetings from "./pages/mentor/Meetings";
 import MentorNotifications from "./pages/mentor/Notifications";
+import MentorProfile from "./pages/mentor/Profile";
 
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminStudents from "./pages/admin/Students";
@@ -55,7 +56,7 @@ function App() {
             <Route path="/mentor/students" element={<ProtectedRoute roles={["mentor"]}><MentorStudents /></ProtectedRoute>} />
             <Route path="/mentor/meetings" element={<ProtectedRoute roles={["mentor"]}><MentorMeetings /></ProtectedRoute>} />
             <Route path="/mentor/notifications" element={<ProtectedRoute roles={["mentor"]}><MentorNotifications /></ProtectedRoute>} />
-            <Route path="/mentor/profile" element={<ProtectedRoute roles={["mentor"]}><StudentProfile /></ProtectedRoute>} />
+            <Route path="/mentor/profile" element={<ProtectedRoute roles={["mentor"]}><MentorProfile /></ProtectedRoute>} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />

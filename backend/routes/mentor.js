@@ -4,6 +4,8 @@ const { protect } = require("../middleware/auth");
 const { allowRoles } = require("../middleware/roleCheck");
 const {
   getDashboard,
+  getProfile,
+  updateProfile,
   getStudents,
   respondToMeeting,
   addMeetingNotes,
@@ -14,6 +16,8 @@ const {
 router.use(protect, allowRoles("mentor"));
 
 router.get("/dashboard", getDashboard);
+router.get("/profile", getProfile);
+router.put("/profile", updateProfile);
 router.get("/students", getStudents);
 router.get("/meetings", getMeetings);
 router.put("/meeting/:id", respondToMeeting);
