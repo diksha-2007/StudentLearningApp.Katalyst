@@ -61,21 +61,27 @@ export default function StudentTrainings() {
                   }}
                   className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                 />
+                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md border border-slate-700/60 rounded-lg px-2.5 py-1 text-[11px] font-semibold text-white flex items-center gap-1.5 shadow-lg">
+                  <span>📺</span> {t.videoCount || t.videos?.length || 0} Lectures
+                </div>
               </div>
               <div className="p-5">
-                <span className="badge">{t.category}</span>
-                <h3 className="mt-3 text-lg font-bold">{t.title}</h3>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="badge">{t.category}</span>
+                  <span className="text-xs text-slate-400">by {t.instructor || "Katalyst"}</span>
+                </div>
+                <h3 className="mt-2 text-lg font-bold line-clamp-1">{t.title}</h3>
                 <p className="mt-2 line-clamp-2 text-sm" style={{ color: "var(--text-secondary)" }}>
                   {t.description}
                 </p>
                 <div className="mt-3 flex gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
                   <span>📊 {t.level}</span>
-                  <span>⏱ {t.duration}</span>
-                  <span>👥 {t.enrolledStudents?.length || 0}</span>
+                  <span>⏱ {t.duration || "Self-paced"}</span>
+                  <span>📹 {t.videoCount || t.videos?.length || 0} Videos</span>
                 </div>
                 <div className="mt-4 flex gap-2">
-                  <Link to={`/student/trainings/${t._id}`} className="btn-primary flex-1 !py-2 text-sm text-center">
-                    View Details
+                  <Link to={`/student/trainings/${t._id}`} className="btn-primary flex-1 !py-2 text-sm text-center flex items-center justify-center gap-1.5">
+                    <span>▶</span> Open Playlist
                   </Link>
                   <button onClick={() => enroll(t._id)} className="btn-secondary !py-2 text-sm">
                     Enroll

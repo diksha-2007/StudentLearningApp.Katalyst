@@ -72,6 +72,30 @@ export default function StudentDashboard() {
         </div>
       </div>
 
+      {/* Schemes & Rural Empowerment Banner */}
+      <div className="glass-card mb-6 p-5 bg-gradient-to-r from-blue-900/60 via-indigo-900/40 to-slate-900 border border-blue-500/40 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+        <div className="flex items-center gap-4">
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-md">
+            🌟
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="badge !bg-amber-500/20 !text-amber-300 font-bold text-[11px]">मराठी + English</span>
+              <span className="badge !bg-emerald-500/20 !text-emerald-300 font-bold text-[11px]">14 Power Features</span>
+            </div>
+            <h3 className="text-base sm:text-lg font-bold text-white mt-1">
+              Government Schemes, Scholarships & Rural Career Hub
+            </h3>
+            <p className="text-xs text-slate-300 mt-0.5">
+              MahaDBT EBC, Swadhar, MPSC/UPSC roadmaps, AI voice tutor & caste validity guides.
+            </p>
+          </div>
+        </div>
+        <Link to="/student/hub" className="btn-primary !py-2 !px-4 text-xs font-bold whitespace-nowrap shadow-md">
+          Explore Hub 🚀
+        </Link>
+      </div>
+
       <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Training Progress" value={`${progress.trainingCompletion || 0}%`} subtitle="Keep going!" icon="📚" />
         <StatCard title="Meetings" value={`${progress.meetingsAttended || 0}/${progress.totalMeetingsScheduled || 0}`} subtitle="Attended" icon="📅" />

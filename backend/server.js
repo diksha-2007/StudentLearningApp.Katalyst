@@ -18,6 +18,7 @@ const notificationRoutes = require("./routes/notification");
 const progressRoutes = require("./routes/progress");
 const aiRoutes = require("./routes/ai");
 const scholarshipRoutes = require("./routes/scholarship");
+const empowermentRoutes = require("./routes/empowerment");
 
 const app = express();
 
@@ -106,6 +107,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/scholarships", scholarshipRoutes);
+app.use("/api/empowerment", empowermentRoutes);
 
 // 404 handler
 app.use((req, res) => {

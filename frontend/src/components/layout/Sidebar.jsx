@@ -11,14 +11,18 @@ import {
   Users,
   GraduationCap,
   ShieldCheck,
+  Sparkles,
+  Award,
   X,
 } from "lucide-react";
 
 const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
   const studentLinks = [
     { name: "Dashboard", path: "/student", icon: LayoutDashboard },
-    { name: "Trainings", path: "/student/trainings", icon: BookOpen },
+    { name: "🌟 Schemes & Rural Hub", path: "/student/hub", icon: Sparkles },
+    { name: "Trainings & Playlists", path: "/student/trainings", icon: BookOpen },
     { name: "Calendar & Meetings", path: "/student/meetings", icon: CalendarDays },
+    { name: "Certificates", path: "/student/certificates", icon: Award },
     { name: "Notifications", path: "/student/notifications", icon: Bell },
     { name: "Profile", path: "/student/profile", icon: User },
   ];
@@ -33,9 +37,10 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
 
   const adminLinks = [
     { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+    { name: "🌟 Manage Schemes Hub", path: "/admin/hub", icon: Sparkles },
     { name: "Students", path: "/admin/students", icon: GraduationCap },
     { name: "Mentors", path: "/admin/mentors", icon: Users },
-    { name: "Trainings", path: "/admin/trainings", icon: BookOpen },
+    { name: "Trainings & Playlists", path: "/admin/trainings", icon: BookOpen },
     { name: "Calendar & Meetings", path: "/admin/meetings", icon: CalendarDays },
     { name: "Notifications", path: "/admin/notifications", icon: Bell },
   ];

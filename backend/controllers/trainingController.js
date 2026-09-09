@@ -14,12 +14,13 @@ const getAllTrainings = async (req, res) => {
     if (level) filter.level = level;
 
     const trainings = await Training.find(filter).select(
-      "title description category thumbnail level duration instructor tags enrolledStudents createdAt"
+      "title description category thumbnail level duration instructor tags enrolledStudents createdAt videos"
     );
 
     const trainingsWithCount = trainings.map((t) => ({
       ...t.toObject(),
       enrollmentCount: t.enrolledStudents.length,
+      videoCount: t.videos?.length || 0,
       enrolledStudents: undefined,
     }));
 

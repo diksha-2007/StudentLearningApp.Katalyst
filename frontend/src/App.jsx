@@ -16,6 +16,8 @@ import StudentCertificates from "./pages/student/Certificates";
 import StudentAIHub from "./pages/student/AIHub";
 import StudentScholarships from "./pages/student/Scholarships";
 import StudentNotifications from "./pages/student/Notifications";
+import EmpowermentHub from "./pages/student/EmpowermentHub";
+import AdminEmpowermentHub from "./pages/admin/AdminEmpowermentHub";
 
 import MentorDashboard from "./pages/mentor/Dashboard";
 import MentorStudents from "./pages/mentor/Students";
@@ -43,6 +45,7 @@ function App() {
 
             {/* Student Routes */}
             <Route path="/student" element={<ProtectedRoute roles={["student"]}><StudentDashboard /></ProtectedRoute>} />
+            <Route path="/student/hub" element={<ProtectedRoute roles={["student"]}><EmpowermentHub /></ProtectedRoute>} />
             <Route path="/student/trainings" element={<ProtectedRoute roles={["student"]}><StudentTrainings /></ProtectedRoute>} />
             <Route path="/student/trainings/:id" element={<ProtectedRoute roles={["student"]}><TrainingDetail /></ProtectedRoute>} />
             <Route path="/student/meetings" element={<ProtectedRoute roles={["student"]}><StudentMeetings /></ProtectedRoute>} />
@@ -60,6 +63,7 @@ function App() {
 
             {/* Admin Routes */}
             <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/hub" element={<ProtectedRoute roles={["admin"]}><AdminEmpowermentHub /></ProtectedRoute>} />
             <Route path="/admin/students" element={<ProtectedRoute roles={["admin"]}><AdminStudents /></ProtectedRoute>} />
             <Route path="/admin/mentors" element={<ProtectedRoute roles={["admin"]}><AdminMentors /></ProtectedRoute>} />
             <Route path="/admin/trainings" element={<ProtectedRoute roles={["admin"]}><AdminTrainings /></ProtectedRoute>} />
