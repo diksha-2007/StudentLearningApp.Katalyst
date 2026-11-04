@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../api";
 import ThemeToggle from "../components/ThemeToggle";
+import BrandMark from "../components/BrandMark";
 
 export default function Register() {
   const [role, setRole] = useState("student");
@@ -70,7 +71,7 @@ export default function Register() {
 
   return (
     <div
-      className="flex min-h-screen items-center justify-center p-4"
+      className="auth-page flex min-h-screen items-center justify-center p-4"
       style={{ background: "var(--bg-primary)" }}
     >
       <div className="absolute right-6 top-6">
@@ -82,7 +83,7 @@ export default function Register() {
           to="/"
           className="text-sm font-medium text-katalyst-500 hover:underline"
         >
-          ← Back to Katalyst
+          ← Back to <BrandMark compact />
         </Link>
 
         <h1 className="mt-6 text-3xl font-bold">

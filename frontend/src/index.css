@@ -1,36 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-primary: #f8fafc;
+  --bg-primary: #f7f5fb;
   --bg-secondary: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.85);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --accent: #2563eb;
-  --accent-light: #eff6ff;
-  --accent-dark: #1d4ed8;
-  --border: rgba(226, 232, 240, 0.8);
-  --shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+  --bg-glass: rgba(255, 255, 255, 0.78);
+  --text-primary: #282342;
+  --text-secondary: #6f6a83;
+  --text-muted: #9691a7;
+  --accent: #6650a5;
+  --accent-light: #eeeafb;
+  --accent-dark: #49347f;
+  --leaf: #9bcfc9;
+  --border: rgba(83, 70, 132, 0.16);
+  --shadow: 0 16px 40px rgba(82, 69, 131, 0.12);
   --sidebar-width: 260px;
 }
 
 .dark {
-  --bg-primary: #0b1120;
-  --bg-secondary: #0f172a;
-  --bg-glass: rgba(15, 23, 42, 0.85);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #3b82f6;
-  --accent-light: #1e293b;
-  --accent-dark: #2563eb;
-  --border: rgba(51, 65, 85, 0.7);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --bg-primary: #28203e;
+  --bg-secondary: #382d54;
+  --bg-glass: rgba(56, 45, 84, 0.84);
+  --text-primary: #fbf8ff;
+  --text-secondary: #d3cae2;
+  --text-muted: #a79bbd;
+  --accent: #a99be2;
+  --accent-light: #4a3d6c;
+  --accent-dark: #c5baf0;
+  --border: rgba(226, 217, 255, 0.18);
+  --shadow: 0 18px 44px rgba(17, 11, 32, 0.32);
 }
 
 * {
@@ -44,11 +45,129 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
+  position: relative;
   transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  content: "";
+  background: linear-gradient(115deg, rgba(247, 245, 251, 0.94), rgba(247, 245, 251, 0.7)), url("https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=2200&q=80") center / cover;
+  opacity: 0.82;
+}
+
+.dark body::before {
+  background: linear-gradient(115deg, rgba(40, 32, 62, 0.95), rgba(40, 32, 62, 0.78)), url("https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=2200&q=80") center / cover;
+  opacity: 0.58;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Playfair Display", Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.public-page,
+.auth-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.public-page {
+  background: linear-gradient(115deg, rgba(247, 245, 251, 0.74), rgba(247, 245, 251, 0.48)), url("/image.png") center top / cover fixed;
+}
+
+.public-page::before,
+.auth-page::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(circle at 86% 12%, rgba(155, 207, 201, 0.3), transparent 27%), radial-gradient(circle at 8% 78%, rgba(102, 80, 165, 0.14), transparent 25%);
+}
+
+.auth-page {
+  background: linear-gradient(120deg, rgba(102, 80, 165, 0.12), transparent 42%);
+}
+
+.landing-hero {
+  background: linear-gradient(90deg, rgba(247, 245, 251, 0.12), rgba(42, 29, 60, 0.18)), url("/image.png") center / cover;
+}
+
+.mission-photo {
+  background: linear-gradient(180deg, rgba(102, 80, 165, 0.04), rgba(39, 29, 66, 0.14)), url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85") center / cover;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--accent-dark);
+}
+
+.brand-symbol {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(102, 80, 165, 0.22);
+  border-radius: 9999px;
+  background: #e8def7;
+  box-shadow: 0 5px 14px rgba(102, 80, 165, 0.14);
+}
+
+.brand-letter {
+  color: #5c429c;
+  font-family: "Berkshire Swash", "Playfair Display", Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1;
+  transform: translateY(-0.03rem);
+}
+
+.brand-butterfly {
+  position: absolute;
+  color: #f3c94f;
+  font-family: Georgia, serif;
+  font-size: 0.72rem;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(163, 109, 19, 0.18);
+}
+
+.brand-butterfly-one {
+  top: -0.18rem;
+  right: -0.02rem;
+  transform: rotate(20deg);
+}
+
+.brand-butterfly-two {
+  top: 0.12rem;
+  right: -0.43rem;
+  font-size: 0.5rem;
+  transform: rotate(-18deg);
+}
+
+.brand-wordmark {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.brand-lockup-compact .brand-symbol {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.brand-lockup-compact .brand-letter {
+  font-size: 1.55rem;
 }
 
 @layer components {
@@ -60,18 +179,18 @@ body {
   }
 
   .glass-card:hover {
-    box-shadow: 0 12px 36px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 18px 42px rgba(82, 69, 131, 0.16);
   }
 
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold text-white transition-all duration-200;
     background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 16px rgba(73, 52, 127, 0.28);
   }
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(73, 52, 127, 0.36);
   }
 
   .btn-secondary {
@@ -96,7 +215,7 @@ body {
 
   .input-field:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 0 0 3px rgba(102, 80, 165, 0.16);
   }
 
   .progress-bar {
@@ -106,7 +225,7 @@ body {
 
   .progress-bar-fill {
     @apply h-full rounded-full transition-all duration-500;
-    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    background: linear-gradient(90deg, var(--leaf), var(--accent));
   }
 
   .badge {
@@ -149,8 +268,8 @@ body {
 }
 
 @keyframes pulse-blue {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(102, 80, 165, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(102, 80, 165, 0); }
 }
 .pulse-blue {
   animation: pulse-blue 2s infinite;
