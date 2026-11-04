@@ -15,6 +15,7 @@ import {
   Award,
   X,
 } from "lucide-react";
+import BrandMark from "../BrandMark";
 
 const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
   const studentLinks = [
@@ -56,17 +57,11 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
   };
 
   const sidebarContent = (
-    <aside className="flex h-full w-64 flex-col border-r border-gray-200 bg-white">
+    <aside className="flex h-full w-64 flex-col border-r" style={{ borderColor: "var(--border)", background: "var(--bg-glass)", backdropFilter: "blur(16px)" }}>
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-gray-200 px-5">
+      <div className="flex h-16 items-center justify-between border-b px-5" style={{ borderColor: "var(--border)" }}>
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600">
-            <GraduationCap className="h-5 w-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-blue-600">Katalyst</h1>
-            <p className="text-[10px] text-gray-500">Learning Platform</p>
-          </div>
+          <BrandMark />
         </div>
         {/* Close button (mobile only) */}
         <button
@@ -79,26 +74,26 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
 
       {/* Role Badge */}
       <div className="px-4 pt-4">
-        <div className="flex items-center gap-3 rounded-xl bg-blue-50 px-3 py-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
+          <div className="flex items-center gap-3 rounded-xl px-3 py-2.5" style={{ background: "var(--accent-light)" }}>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-katalyst-100">
             {role === "admin" ? (
-              <ShieldCheck className="h-4 w-4 text-blue-600" />
+              <ShieldCheck className="h-4 w-4 text-katalyst-600" />
             ) : role === "mentor" ? (
-              <Users className="h-4 w-4 text-blue-600" />
+              <Users className="h-4 w-4 text-katalyst-600" />
             ) : (
-              <User className="h-4 w-4 text-blue-600" />
+              <User className="h-4 w-4 text-katalyst-600" />
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-[10px] text-gray-500">Logged in as</p>
-            <p className="truncate text-sm font-semibold capitalize text-gray-800">{role}</p>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>Logged in as</p>
+            <p className="truncate text-sm font-semibold capitalize">{role}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-4 py-5">
-        <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-gray-400">Menu</p>
+        <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>Menu</p>
         <div className="space-y-1">
           {links.map((item) => {
             const Icon = item.icon;
@@ -111,8 +106,8 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                      ? "bg-katalyst-500 text-white shadow-md"
+                      : "hover:bg-katalyst-50 hover:text-katalyst-600"
                   }`
                 }
               >
@@ -125,11 +120,11 @@ const Sidebar = ({ role = "student", mobileOpen = false, onClose }) => {
       </nav>
 
       {/* Bottom: Logout */}
-      <div className="border-t border-gray-200 p-4">
+      <div className="border-t p-4" style={{ borderColor: "var(--border)" }}>
         <button
           type="button"
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-600 transition-all hover:bg-red-50 hover:text-red-600"
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all hover:bg-red-50 hover:text-red-600"
         >
           <LogOut className="h-5 w-5" />
           <span>Logout</span>

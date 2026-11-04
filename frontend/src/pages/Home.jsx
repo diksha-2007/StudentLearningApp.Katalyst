@@ -1,19 +1,25 @@
 import { Link } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
+import BrandMark from "../components/BrandMark";
+import { ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-primary)" }}>
-      <nav className="flex items-center justify-between border-b px-6 py-5 lg:px-12"
+    <div className="public-page min-h-screen overflow-hidden">
+      <nav className="relative z-10 flex items-center justify-between px-6 py-5 lg:px-12"
         style={{ borderColor: "var(--border)", background: "var(--bg-glass)", backdropFilter: "blur(16px)" }}
       >
-        <h1 className="text-2xl font-bold tracking-wider lg:text-3xl">
-          KATALYST<span className="text-katalyst-500">.</span>
-        </h1>
+        <BrandMark />
+        <div className="hidden items-center gap-8 text-xs font-medium text-slate-600 md:flex">
+          <a href="#focus" className="transition-colors hover:text-katalyst-600">About</a>
+          <a href="#programs" className="transition-colors hover:text-katalyst-600">Programs</a>
+          <a href="#mission" className="transition-colors hover:text-katalyst-600">Impact</a>
+          <a href="#join" className="transition-colors hover:text-katalyst-600">Get Involved</a>
+          <a href="#programs" className="transition-colors hover:text-katalyst-600">Resources</a>
+        </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Link to="/login" className="btn-secondary">Login</Link>
-          <Link to="/register" className="btn-primary hidden sm:inline-flex">Get Started →</Link>
+          <Link to="/register" className="btn-primary !rounded-full !px-4 !py-2 text-xs">Join the Program <ArrowUpRight className="h-3.5 w-3.5" /></Link>
         </div>
       </nav>
 
@@ -36,28 +42,20 @@ export default function Home() {
           <Link to="/login" className="btn-secondary text-lg">Try Demo Accounts 🚀</Link>
         </div>
 
-        {/* Instant Demo Quick-Access for New Users */}
-        <div className="glass-card mt-12 p-6 border-l-4 border-l-katalyst-500">
-          <h3 className="font-bold text-lg flex items-center gap-2">
+        <div className="glass-card mt-12 border-l-4 border-l-katalyst-500 p-6">
+          <h3 className="flex items-center gap-2 text-lg font-bold">
             <span>✨</span> Instant Demo Access for New Users
           </h3>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+          <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
             Explore the platform instantly with zero setup using pre-configured role demos:
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link to="/login" className="btn-primary !py-2 text-xs">
-              🎓 Try Student Portal Demo
-            </Link>
-            <Link to="/login" className="btn-secondary !py-2 text-xs">
-              👨‍🏫 Try Mentor Portal Demo
-            </Link>
-            <Link to="/login" className="btn-secondary !py-2 text-xs">
-              🛡️ Try Admin Portal Demo
-            </Link>
+            <Link to="/login" className="btn-primary !py-2 text-xs">🎓 Try Student Portal Demo</Link>
+            <Link to="/login" className="btn-secondary !py-2 text-xs">👨‍🏫 Try Mentor Portal Demo</Link>
+            <Link to="/login" className="btn-secondary !py-2 text-xs">🛡️ Try Admin Portal Demo</Link>
           </div>
         </div>
 
-        {/* Feature cards */}
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
             { icon: "📚", title: "Structured Trainings", desc: "Videos, quizzes, assignments & certificates" },
@@ -75,7 +73,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Portal preview */}
         <div className="glass-card mt-16 flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center lg:p-12">
           <div>
             <p className="section-subtitle">Platform Portals</p>
